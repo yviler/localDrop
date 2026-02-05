@@ -6,7 +6,9 @@
   </head>
   <body>
     <h1>Dashboard</h1>
-    <a href="#">See Files</a>
+    <a href="{{ request.url_for('browse', current_directory='TEST')}}"
+      >See Files</a
+    >
     <br />
     <a href="/upload">Upload</a>
   </body>

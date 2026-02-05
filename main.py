@@ -5,6 +5,7 @@ from fastapi.templating import Jinja2Templates
 from typing import Annotated
 import os
 import shutil
+from pathlib import Path
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -13,6 +14,7 @@ templates = Jinja2Templates(directory="templates")
 UPLOAD_DIR = "/home/boba/Desktop/FileExample"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
+BASE_DIR = Path(UPLOAD_DIR).resolve()
 
 @app.get("/")
 def index():
@@ -40,6 +42,13 @@ async def upload(request: Request, file: UploadFile):
     #change to better UI 
     return {"Filename": file.filename, "Message": "File uploaded succefully to"}
 
-@app.get("browse")
-def browse(request: Request):
-    return {"Test"}
+@app.get("/browse/{current_directory}")
+def browse(current_directory: str, request: Request):
+    
+   directory = {
+       "name": current_directory
+   }
+   return templates.TemplateResponse("browse.html", 
+                                     {"request": request,
+                                     "directory": directory},
+                                     )
