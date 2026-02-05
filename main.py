@@ -42,12 +42,14 @@ async def upload(request: Request, file: UploadFile):
     #change to better UI 
     return {"Filename": file.filename, "Message": "File uploaded succefully to"}
 
+
 @app.get("/browse/{current_directory}")
 def browse(current_directory: str, request: Request):
     
    directory = {
        "name": current_directory
    }
+   
    return templates.TemplateResponse("browse.html", 
                                      {"request": request,
                                      "directory": directory},
