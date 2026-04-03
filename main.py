@@ -11,7 +11,11 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
+<<<<<<< HEAD
 UPLOAD_DIR = "files"
+=======
+UPLOAD_DIR = "/home/bip/Desktop/localDrop/ExampleRoot"
+>>>>>>> 550b2d1dbd46a86e9bf922692f2c7ad4796a88bb
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 BASE_DIR = Path(UPLOAD_DIR).resolve()
@@ -22,11 +26,11 @@ def index():
 
 @app.get("/dashboard")
 def dashboard(request: Request):
-    return templates.TemplateResponse("dashboard.html", {"request": request})
+    return templates.TemplateResponse(request, "dashboard.html")
 
 @app.get("/upload")
 def upload(request: Request):
-    return templates.TemplateResponse("upload.html", {"request": request})
+    return templates.TemplateResponse(request, "upload.html")
 
 @app.post("/upload")
 async def upload(request: Request, file: UploadFile):
@@ -55,7 +59,10 @@ def browse(current_directory: str, request: Request):
        "name": current_directory,
    }
    
-   return templates.TemplateResponse("browse.html", 
-                                     {"request": request,
-                                     "directory": directory},
-                                     )
+   return templates.TemplateResponse(
+        request,
+        "browse.html",
+        {
+            "directory": directory,
+        },
+    )
