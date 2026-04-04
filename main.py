@@ -43,10 +43,15 @@ async def upload(request: Request, file: UploadFile):
     return {"Filename": file.filename, "Message": "File uploaded succefully to"}
 
 @app.get("/browse/{current_directory}")
+#TODO: File should not be ABSOLUTE DIRECTORY, make it relative
 def browse(current_directory: str, request: Request):
-    
+    # 1. Read directory
+    # 2. Validate real directory
+    # 3. If real, initialize directory class (make the class later)
+    # 4. Read the inside of the directory and output as link(?)
+
    directory = {
-       "name": current_directory
+       "name": current_directory,
    }
    
    return templates.TemplateResponse(
