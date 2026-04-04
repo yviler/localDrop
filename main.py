@@ -11,7 +11,7 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
-UPLOAD_DIR = "/home/bip/Desktop/localDrop/ExampleRoot"
+UPLOAD_DIR = "/ExampleRoot"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 BASE_DIR = Path(UPLOAD_DIR).resolve()
@@ -41,7 +41,6 @@ async def upload(request: Request, file: UploadFile):
 
     #change to better UI 
     return {"Filename": file.filename, "Message": "File uploaded succefully to"}
-
 
 @app.get("/browse/{current_directory}")
 def browse(current_directory: str, request: Request):
