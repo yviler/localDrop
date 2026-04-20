@@ -5,7 +5,10 @@
     <title>{{ directory.name }}</title>
   </head>
   <body>
-    <h1>Directory</h1>
+    <h1>
+      Directory <b>{{ directory.name }}</b> with {{ directory.item_amount }}
+      amount of items
+    </h1>
     <h2>Items</h2>
     {% for item in items %}
     <ul>

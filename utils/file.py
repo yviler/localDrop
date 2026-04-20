@@ -1,2 +1,1 @@
-def ls():
-    
+def createItemObj(items:list)-> list:

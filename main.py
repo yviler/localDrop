@@ -44,12 +44,12 @@ async def upload(request: Request, file: UploadFile):
 @app.get("/browse/{current_directory}")
 #TODO: File should not be ABSOLUTE DIRECTORY, make it relative
 def browse(current_directory: str, request: Request):
+   items = os.listdir(current_directory)
 
    directory = {
        "name": current_directory,
+       "item_amount": len(items)
    }
-
-   items = os.listdir(current_directory)
    
    return templates.TemplateResponse(
         request,
