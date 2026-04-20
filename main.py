@@ -6,6 +6,7 @@ from typing import Annotated
 import os
 import shutil
 from pathlib import Path
+from utils.file import createItemObj
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -44,18 +45,19 @@ async def upload(request: Request, file: UploadFile):
 @app.get("/browse/{current_directory}")
 #TODO: File should not be ABSOLUTE DIRECTORY, make it relative
 def browse(current_directory: str, request: Request):
-   items = os.listdir(current_directory)
+    items = os.listdir(current_directory)
+    print(createItemObj(items, current_directory))
 
-   directory = {
-       "name": current_directory,
-       "item_amount": len(items)
-   }
-   
-   return templates.TemplateResponse(
-        request,
-        "browse.html",
-        {
-            "directory": directory,
-            "items": items,
-        },
-    )
+    directory = {
+        "name": current_directory,
+        "item_amount": len(items)
+    }
+    
+    return templates.TemplateResponse(
+            request,
+            "browse.html",
+            {
+                "directory": directory,
+                "items": items,
+            },
+        )
