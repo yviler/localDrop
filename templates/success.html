@@ -2,11 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Dashboard</title>
+    <title>File Uploaded</title>
   </head>
   <body>
     <h1>Dashboard</h1>
-    <!-- CHANGE CURRENT_DIRECTORY TO ALWAYS POINT TO .ENV UPLOAD_DIR -->
     <a href="{{ request.url_for('browse', current_directory='ExampleRoot')}}"
       >See Files</a
     >

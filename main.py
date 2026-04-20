@@ -11,7 +11,7 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
-UPLOAD_DIR = "/ExampleRoot"
+UPLOAD_DIR = os.getenv("UPLOAD_DIR", "./ExampleRoot")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 BASE_DIR = Path(UPLOAD_DIR).resolve()
@@ -39,8 +39,7 @@ async def upload(request: Request, file: UploadFile):
     finally:
         await file.close()
 
-    #change to better UI 
-    return {"Filename": file.filename, "Message": "File uploaded succefully to"}
+    return templates.TemplateResponse(request, "success.html")
 
 @app.get("/browse/{current_directory}")
 #TODO: File should not be ABSOLUTE DIRECTORY, make it relative
@@ -53,11 +52,14 @@ def browse(current_directory: str, request: Request):
    directory = {
        "name": current_directory,
    }
+
+   items = os.listdir(current_directory)
    
    return templates.TemplateResponse(
         request,
         "browse.html",
         {
             "directory": directory,
+            "items": items,
         },
     )
