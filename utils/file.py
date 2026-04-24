@@ -1,4 +1,5 @@
 import os
+from app.models.models import Item
 
 def createItemObj(items:list,current_dir:str)-> list:
     for item in items:
