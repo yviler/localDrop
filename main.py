@@ -46,7 +46,7 @@ async def upload(request: Request, file: UploadFile):
 #TODO: File should not be ABSOLUTE DIRECTORY, make it relative
 def browse(current_directory: str, request: Request):
     items = os.listdir(current_directory)
-    print(createItemObj(items, current_directory))
+    createItemObj(items, current_directory)
 
     directory = {
         "name": current_directory,
