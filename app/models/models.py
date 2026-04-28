@@ -6,3 +6,5 @@ class Item:
         self.location = location
         self.isDirectory = isDirectory
     
+    def __repr__(self):
+        return f"Item(filename={self.filename!r}, filesize={self.filesize}, filetype={self.filetype!r}, location={self.location!r}, isDirectory={self.isDirectory})"

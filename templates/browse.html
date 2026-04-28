@@ -12,7 +12,10 @@
     <h2>Items</h2>
     {% for item in items %}
     <ul>
-      <li>{{ item }}</li>
+      <li>
+        File Name: {{ item.filename }} File Size(Bytes): {{item.filesize}} Bytes
+        Filetype: {{ item.filetype }}
+      </li>
     </ul>
     {% endfor %}
   </body>

@@ -45,9 +45,12 @@ async def upload(request: Request, file: UploadFile):
 @app.get("/browse/{current_directory}")
 #TODO: File should not be ABSOLUTE DIRECTORY, make it relative
 def browse(current_directory: str, request: Request):
+    #use Path.resolve(current_directory)
+    #if not same with base_dir, output error 
     items = os.listdir(current_directory)
-    createItemObj(items, current_directory)
-
+    itemList = createItemObj(items, current_directory)
+    print(createItemObj(items, current_directory))
+    
     directory = {
         "name": current_directory,
         "item_amount": len(items)
@@ -58,6 +61,6 @@ def browse(current_directory: str, request: Request):
             "browse.html",
             {
                 "directory": directory,
-                "items": items,
+                "items": itemList,
             },
         )
