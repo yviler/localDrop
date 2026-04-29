@@ -23,7 +23,13 @@ def index():
 
 @app.get("/dashboard")
 def dashboard(request: Request):
-    return templates.TemplateResponse(request, "dashboard.html")
+    return templates.TemplateResponse(
+        request, 
+        "dashboard.html",
+        {
+            "base_dir": UPLOAD_DIR
+        },
+        )
 
 @app.get("/upload")
 def upload(request: Request):
@@ -31,6 +37,7 @@ def upload(request: Request):
 
 @app.post("/upload")
 async def upload(request: Request, file: UploadFile):
+    # UPLOADING SHOULD BECOME A STRING, SO CANT UPLOAD A DIRECTORY NAME WHICH COULD BE MISINTERPRETED
     file_path = os.path.join(UPLOAD_DIR, file.filename)
     try:
         with open(file_path, "wb") as buffer:
@@ -42,14 +49,23 @@ async def upload(request: Request, file: UploadFile):
 
     return templates.TemplateResponse(request, "success.html")
 
-@app.get("/browse/{current_directory}")
-#TODO: File should not be ABSOLUTE DIRECTORY, make it relative
+@app.get("/browse/{current_directory:path}")
 def browse(current_directory: str, request: Request):
-    #use Path.resolve(current_directory)
-    #if not same with base_dir, output error 
-    items = os.listdir(current_directory)
-    itemList = createItemObj(items, current_directory)
-    print(createItemObj(items, current_directory))
+    absolutePath = Path(current_directory).resolve()
+    items = os.listdir(absolutePath)
+    itemList = createItemObj(items, absolutePath)
+    print(BASE_DIR)
+    print(absolutePath) 
+
+    #dont check absolute path with base dir, instead if absoulte path STARTS with BASE_DIR, or maybe theres a built in function
+    if(str(absolutePath).startswith(str(BASE_DIR)) != True):
+        return templates.TemplateResponse(
+            request, 
+            "error.html",
+            {
+            "wrongPath": current_directory,       
+            },
+        )
     
     directory = {
         "name": current_directory,

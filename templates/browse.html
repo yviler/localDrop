@@ -14,7 +14,13 @@
     <ul>
       <li>
         File Name: {{ item.filename }} File Size(Bytes): {{item.filesize}}
-        Filetype: {{ item.filetype }}
+        Filetype: {{ item.filetype }} {% if item.isDirectory %}
+        <!-- TODO: FIX THE HREF FOR OPENING DIRECTORIES-->
+        <a
+          href="{{request.url_for('browse', current_directory= directory.name + '/' + item.filename )}}"
+          >access directory</a
+        >
+        {% endif %}
       </li>
     </ul>
     {% endfor %}

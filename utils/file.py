@@ -28,5 +28,5 @@ def normalizeFileSize(filesize:int)-> str:
     while(filesize>999):
         filesize/=1000
         count+=1
-    filesize = str(round(filesize,2)) + sizeDict.get(count)
+    filesize = str(round(filesize,2)) + " " + sizeDict.get(count)
     return filesize

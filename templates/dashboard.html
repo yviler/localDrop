@@ -6,8 +6,7 @@
   </head>
   <body>
     <h1>Dashboard</h1>
-    <!-- CHANGE CURRENT_DIRECTORY TO ALWAYS POINT TO .ENV UPLOAD_DIR -->
-    <a href="{{ request.url_for('browse', current_directory='ExampleRoot')}}"
+    <a href="{{ request.url_for('browse', current_directory=base_dir)}}"
       >See Files</a
     >
     <br />
