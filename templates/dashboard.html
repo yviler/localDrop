@@ -3,13 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <title>Dashboard</title>
+    <link rel="stylesheet" href="static/css/dashboard.css" />
   </head>
   <body>
-    <h1>Dashboard</h1>
-    <a href="{{ request.url_for('browse', current_directory=base_dir)}}"
-      >See Files</a
-    >
-    <br />
-    <a href="/upload">Upload</a>
+    <div class="center">
+      <h1>Dashboard</h1>
+      <a href="{{ request.url_for('browse', current_directory=base_dir)}}"
+        >See Files</a
+      >
+      <br />
+      <a href="/upload">Upload</a>
+    </div>
   </body>
 </html>
