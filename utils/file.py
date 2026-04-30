@@ -7,11 +7,12 @@ def createItemObj(items:list,current_dir:str)-> list:
         full_item = os.path.join(current_dir,item)
         stats = os.stat(full_item)
         objList.append(Item(
-            filename=item,
+            filename=os.path.splitext(item)[0],
             filesize=normalizeFileSize(stats.st_size),
-            filetype=os.path.splitext(item)[1],
+            filetype=os.path.splitext(item)[1][1:],
             location=current_dir,
-            isDirectory=os.path.isdir(full_item)
+            isDirectory=os.path.isdir(full_item),
+
         ))
     return objList
 
