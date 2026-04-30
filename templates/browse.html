@@ -5,19 +5,17 @@
     <title>{{ directory.name }}</title>
   </head>
   <body>
-    <h1>
-      Directory <b>{{ directory.name }}</b> with {{ directory.item_amount }}
-      amount of items
-    </h1>
-    <h2>Items</h2>
+    <p>
+      <b>{{ directory.name }}</b>
+    </p>
     <table>
       <th>No.</th>
       <th>Filename</th>
       <th>Filesize</th>
       <th>Filetype</th>
-      {% for item in items %}
+      {% set count = 0 %} {% for item in items %} {% set count = count + 1 %}
       <tr>
-        <td></td>
+        <td>{{ count }}</td>
         <td>
           {% if item.isDirectory %}
           <!-- make current_diretory cleaner for accessing directories-->

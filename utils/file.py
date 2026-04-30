@@ -1,5 +1,6 @@
 import os
 from app.models.models import Item
+from os import path
 
 def createItemObj(items:list,current_dir:str)-> list:
     objList = []

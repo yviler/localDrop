@@ -41,6 +41,7 @@ async def upload(request: Request, file: UploadFile):
     file_path = os.path.join(UPLOAD_DIR, file.filename)
     try:
         with open(file_path, "wb") as buffer:
+            # if file name already exists, add (+=1), per existing, currently, it just doesnt upload  
             shutil.copyfileobj(file.file, buffer)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error saving file: {e}")
@@ -54,10 +55,8 @@ def browse(current_directory: str, request: Request):
     absolutePath = Path(current_directory).resolve()
     items = os.listdir(absolutePath)
     itemList = createItemObj(items, absolutePath)
-    print(BASE_DIR)
-    print(absolutePath) 
+    print(current_directory) 
 
-    #dont check absolute path with base dir, instead if absoulte path STARTS with BASE_DIR, or maybe theres a built in function
     if(str(absolutePath).startswith(str(BASE_DIR)) != True):
         return templates.TemplateResponse(
             request, 
