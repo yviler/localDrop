@@ -56,7 +56,9 @@ def browse(current_directory: str, request: Request):
     absolutePath = Path(current_directory).resolve()
     items = os.listdir(absolutePath)
     itemList = createItemObj(items, absolutePath)
-    print(createBreadcrumbs(current_directory)) 
+    
+    # if we go back and forth via the browser, it doesnt activate this function
+    createBreadcrumbs(current_directory)
     
     if(str(absolutePath).startswith(str(BASE_DIR)) != True):
         return templates.TemplateResponse(
