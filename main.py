@@ -58,7 +58,7 @@ def browse(current_directory: str, request: Request):
     itemList = createItemObj(items, absolutePath)
     
     # if we go back and forth via the browser, it doesnt activate this function
-    createBreadcrumbs(current_directory)
+    directoryList = createBreadcrumbs(current_directory)
     
     if(str(absolutePath).startswith(str(BASE_DIR)) != True):
         return templates.TemplateResponse(
@@ -71,7 +71,7 @@ def browse(current_directory: str, request: Request):
     
     directory = {
         "name": current_directory,
-        "item_amount": len(items)
+        "paths": directoryList
     }
     
     return templates.TemplateResponse(

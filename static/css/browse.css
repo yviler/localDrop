@@ -1,0 +1,7 @@
+.breadcrumbs span {
+  display: inline;
+}
+
+.breadcrumbs {
+  display: flex;
+}

@@ -2,13 +2,19 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>{{ directory.name }}</title>
+    <link rel="stylesheet" href="/static/css/browse.css" />
+    <title>{{ directory.name.split('/')[-1] }}</title>
   </head>
   <body>
+    <div class="breadcrumbs">
+      {% for path in directory.paths|reverse %} {% if path == directory.name %}
+      <span>{{ path.split('/')[-1] }}</span>
+      {% else %}
+      <a href="{{request.url_for('browse', current_directory=path)}}"
+        >{{ path.split('/')[-1] }}</a
+      ><span>/</span> {% endif %} {% endfor %}
+    </div>
     {% if items %}
-    <p>
-      <b>{{ directory.name }}</b>
-    </p>
     <table>
       <th>No.</th>
       <th>Filename</th>

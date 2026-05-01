@@ -7,3 +7,4 @@ def createBreadcrumbs(directory:str) -> list:
         availablePaths.append(currentPath)
         currentPath = os.path.split(currentPath)[0]
     print(availablePaths)
+    return availablePaths
