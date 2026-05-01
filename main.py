@@ -7,6 +7,7 @@ import os
 import shutil
 from pathlib import Path
 from utils.file import createItemObj
+from utils.directories import createBreadcrumbs
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -55,8 +56,8 @@ def browse(current_directory: str, request: Request):
     absolutePath = Path(current_directory).resolve()
     items = os.listdir(absolutePath)
     itemList = createItemObj(items, absolutePath)
-    print(current_directory) 
-
+    print(createBreadcrumbs(current_directory)) 
+    
     if(str(absolutePath).startswith(str(BASE_DIR)) != True):
         return templates.TemplateResponse(
             request, 

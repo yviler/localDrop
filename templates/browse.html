@@ -5,6 +5,7 @@
     <title>{{ directory.name }}</title>
   </head>
   <body>
+    {% if items %}
     <p>
       <b>{{ directory.name }}</b>
     </p>
@@ -13,6 +14,7 @@
       <th>Filename</th>
       <th>Filesize</th>
       <th>Filetype</th>
+      <!-- currently count doesnt count up -->
       {% set count = 0 %} {% for item in items %} {% set count = count + 1 %}
       <tr>
         <td>{{ count }}</td>
@@ -29,5 +31,8 @@
       </tr>
       {% endfor %}
     </table>
+    {% else %}
+    <p>no items</p>
+    {% endif %}
   </body>
 </html>
