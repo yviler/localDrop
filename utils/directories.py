@@ -5,5 +5,5 @@ def createBreadcrumbs(directory:str) -> list:
     currentPath = directory
     while(bool(currentPath)):
         availablePaths.append(currentPath)
-        currentPath = os.path.split(directory)[0]
+        currentPath = os.path.split(currentPath)[0]
     print(availablePaths)
