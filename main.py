@@ -41,7 +41,7 @@ async def upload(request: Request, file: UploadFile, directory:str = Form(""), n
     # UPLOADING SHOULD BECOME A STRING, SO CANT UPLOAD A DIRECTORY NAME WHICH COULD BE MISINTERPRETED
     
     if(bool(directory)):
-        uploadPath = Path(BASE_DIR) / directory
+        uploadPath = (Path(BASE_DIR) / directory).resolve()
     else:
         uploadPath = BASE_DIR 
         
