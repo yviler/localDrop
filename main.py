@@ -41,17 +41,25 @@ async def upload(request: Request, file: UploadFile, directory:str = Form(""), n
     # UPLOADING SHOULD BECOME A STRING, SO CANT UPLOAD A DIRECTORY NAME WHICH COULD BE MISINTERPRETED
     
     if(bool(directory)):
-        upload = Path(BASE_DIR) / directory
+        uploadPath = Path(BASE_DIR) / directory
     else:
-        upload = BASE_DIR 
+        uploadPath = BASE_DIR 
+        
+    if(str(uploadPath).startswith(str(BASE_DIR)) != True):
+        return templates.TemplateResponse(
+            request, 
+            "error.html",
+            {
+            "wrongPath": uploadPath,       
+            },
+        )
         
     if(bool(name)):
         extension = os.path.splitext(file.filename)[-1]
         filename = name + extension
     else:
         filename = file.filename
-    file_path = os.path.join(upload, filename)
-    print(filename)
+    file_path = os.path.join(uploadPath, filename)
     try:
         with open(file_path, "wb") as buffer:
             # if file name already exists, add (+=1), per existing, currently, it just doesnt upload  
