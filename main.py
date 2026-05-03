@@ -37,9 +37,13 @@ def upload(request: Request):
     return templates.TemplateResponse(request, "upload.html")
 
 @app.post("/upload")
-async def upload(request: Request, file: UploadFile):
+async def upload(request: Request, file: UploadFile, directory:str = Form("")):
     # UPLOADING SHOULD BECOME A STRING, SO CANT UPLOAD A DIRECTORY NAME WHICH COULD BE MISINTERPRETED
-    file_path = os.path.join(UPLOAD_DIR, file.filename)
+    if(bool(directory)):
+        upload = Path(BASE_DIR) / directory
+    else:
+        upload = BASE_DIR 
+    file_path = os.path.join(upload, file.filename)
     try:
         with open(file_path, "wb") as buffer:
             # if file name already exists, add (+=1), per existing, currently, it just doesnt upload  
