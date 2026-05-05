@@ -73,21 +73,24 @@ async def upload(request: Request, file: UploadFile, directory:str = Form(""), n
 
 @app.get("/browse/{current_directory:path}")
 def browse(current_directory: str, request: Request):
+        
     absolutePath = Path(current_directory).resolve()
+    
+    if(str(absolutePath).startswith(str(BASE_DIR)) != True):
+            return templates.TemplateResponse(
+                request, 
+                "error.html",
+                {
+                "wrongPath": current_directory,       
+                },
+            )
+            
     items = os.listdir(absolutePath)
     itemList = createItemObj(items, absolutePath)
     
     # if we go back and forth via the browser, it doesnt activate this function
     directoryList = createBreadcrumbs(current_directory)
     
-    if(str(absolutePath).startswith(str(BASE_DIR)) != True):
-        return templates.TemplateResponse(
-            request, 
-            "error.html",
-            {
-            "wrongPath": current_directory,       
-            },
-        )
     
     directory = {
         "name": current_directory,
