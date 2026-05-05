@@ -9,6 +9,9 @@
       <nav>
         <a href="{{request.url_for('dashboard')}}">Dashboard</a>
         <a href="{{request.url_for('upload')}}">Upload</a>
+        <a href="{{request.url_for('browse', current_directory=BASE_DIR)}}"
+          >Browse</a
+        >
       </nav>
     </header>
 

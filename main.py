@@ -18,6 +18,8 @@ os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 BASE_DIR = Path(UPLOAD_DIR).resolve()
 
+templates.env.globals["BASE_DIR"] = str(UPLOAD_DIR)
+
 @app.get("/")
 def index():
     return RedirectResponse("/dashboard")
