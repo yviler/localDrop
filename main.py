@@ -34,25 +34,25 @@ def dashboard(request: Request):
         },
         )
 
-@app.get("/upload")
-def upload(request: Request):
-    return templates.TemplateResponse(request, "upload.html")
+@app.get("/upload/{directory:path}")
+def upload(request: Request, directory:str):
+    return templates.TemplateResponse(
+        request, 
+        "upload.html", 
+        {
+            "directory":directory,
+        },  
+    )
 
-@app.post("/upload")
-async def upload(request: Request, file: UploadFile, directory:str = Form(""), name:str = Form("")):
-    # UPLOADING SHOULD BECOME A STRING, SO CANT UPLOAD A DIRECTORY NAME WHICH COULD BE MISINTERPRETED
-    
-    if(bool(directory)):
-        uploadPath = (Path(BASE_DIR) / directory).resolve()
-    else:
-        uploadPath = BASE_DIR 
-        
-    if(str(uploadPath).startswith(str(BASE_DIR)) != True):
+@app.post("/upload/")
+async def upload(request: Request, file: UploadFile, directory:str= Form(...), name:str = Form("")):    
+
+    if(str(directory).startswith(str(BASE_DIR)) != True):
         return templates.TemplateResponse(
             request, 
             "error.html",
             {
-            "wrongPath": uploadPath,       
+            "wrongPath": directory,       
             },
         )
         
@@ -61,7 +61,7 @@ async def upload(request: Request, file: UploadFile, directory:str = Form(""), n
         filename = name + extension
     else:
         filename = file.filename
-    file_path = os.path.join(uploadPath, filename)
+    file_path = os.path.join(directory, filename)
     try:
         with open(file_path, "wb") as buffer:
             # if file name already exists, add (+=1), per existing, currently, it just doesnt upload  
@@ -96,6 +96,7 @@ def browse(current_directory: str, request: Request):
     
     directory = {
         "name": current_directory,
+        "full_dir": absolutePath,
         "paths": directoryList
     }
     

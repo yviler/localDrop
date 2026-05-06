@@ -39,5 +39,10 @@
     {% else %}
     <p>no items</p>
     {% endif %}
+    <div>
+      <a href="{{request.url_for('upload', directory=directory.full_dir)}}"
+        >Upload</a
+      >
+    </div>
   </body>
 </html>

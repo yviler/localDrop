@@ -2,19 +2,20 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>{% block title %} Title {% endblock %}</title>
+    <link rel="stylesheet" href="static/css/base.css" />
   </head>
+  {% block head %} {% endblock %}
   <body>
-    <header>
-      <nav>
-        <a href="{{request.url_for('dashboard')}}">Dashboard</a>
-        <a href="{{request.url_for('upload')}}">Upload</a>
-        <a href="{{request.url_for('browse', current_directory=BASE_DIR)}}"
-          >Browse</a
-        >
-      </nav>
-    </header>
-
+    <div>
+      <header>
+        <nav>
+          <a href="{{request.url_for('dashboard')}}">Dashboard</a>
+          <a href="{{request.url_for('browse', current_directory=BASE_DIR)}}"
+            >Browse</a
+          >
+        </nav>
+      </header>
+    </div>
     <main>{% block content %} {% endblock %}</main>
   </body>
 </html>
