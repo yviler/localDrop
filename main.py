@@ -20,8 +20,8 @@ BASE_DIR = Path(UPLOAD_DIR).resolve()
 templates.env.globals["BASE_DIR"] = str(UPLOAD_DIR)
 
 @app.get("/")
-def index():
-    return RedirectResponse("/dashboard")
+def index(request: Request):
+    return RedirectResponse(f"/browse/{UPLOAD_DIR}")
 
 @app.get("/dashboard")
 def dashboard(request: Request):

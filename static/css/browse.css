@@ -2,6 +2,44 @@
   display: inline;
 }
 
+a,
+table th,
+table tr,
+p {
+  font-family: "Courier New", Courier, monospace;
+  color: aliceblue;
+}
+
+span {
+  color: aliceblue;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(13, 167, 159);
+}
+
 .breadcrumbs {
   display: flex;
+  font-family: monospace;
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+.data {
+  border-bottom: 1px solid black;
+  border-color: rgb(80, 13, 167);
+}
+
+.directory {
+  color: rgb(13, 167, 159);
+  text-decoration: none;
+}
+
+html {
+  background-color: rgb(27, 27, 27);
 }

@@ -7,28 +7,31 @@
   </head>
   <body>
     <div class="breadcrumbs">
+      <span>$</span>
       {% for path in directory.paths|reverse %} {% if path == directory.name %}
       <span>{{ path.split('/')[-1] }}</span>
       {% else %}
       <a href="{{request.url_for('browse', current_directory=path)}}"
         >{{ path.split('/')[-1] }}</a
-      ><span>/</span> {% endif %} {% endfor %}
+      ><span>></span> {% endif %} {% endfor %}
     </div>
     {% if items %}
     <table>
-      <th>No.</th>
-      <th>Filename</th>
-      <th>Filesize</th>
-      <th>Filetype</th>
+      <tr class="head">
+        <th>No.</th>
+        <th>Filename</th>
+        <th>Filesize</th>
+        <th>Filetype</th>
+      </tr>
       {% for item in items %}
-      <tr>
+      <tr class="data">
         <td>{{ loop.index }}</td>
         <td>
           {% if item.isDirectory %}
-          <!-- make current_diretory cleaner for accessing directories-->
           <a
+            class="directory"
             href="{{request.url_for('browse', current_directory=directory.name + '/' + item.filename)}}"
-            >{{ item.filename }}</a
+            >/{{ item.filename }}</a
           >{% else %} {{ item.filename }} {% endif %}
         </td>
         <td>{{ item.filesize }}</td>
@@ -41,8 +44,9 @@
     {% endif %}
     <div>
       <a href="{{request.url_for('upload', directory=directory.full_dir)}}"
-        >Upload</a
+        >[ Upload ]</a
       >
     </div>
   </body>
+  <script src="/static/js/browse.js"></script>
 </html>

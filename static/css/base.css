@@ -1,11 +1,26 @@
-div {
+.header {
   display: flex;
   text-align: center;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background-color: antiquewhite;
+}
+
+.header a {
+  margin-right: 10px;
+  font-size: 32px;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+body {
+  margin: 0;
 }
 
 html {
-  background-color:  grey;
+  background-color: rgb(63, 63, 63);
 }
