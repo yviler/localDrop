@@ -2,7 +2,6 @@ from fastapi import FastAPI, Request, UploadFile, HTTPException, Form
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from typing import Annotated
 import os
 import shutil
 from pathlib import Path
