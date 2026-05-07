@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Request, UploadFile, HTTPException, Form
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import os
@@ -107,3 +107,7 @@ def browse(current_directory: str, request: Request):
                 "items": itemList,
             },
         )
+    
+@app.get("download/{filepath:path}")
+def download(filepath:str):
+    return FileResponse(filepath)

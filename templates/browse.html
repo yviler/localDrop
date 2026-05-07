@@ -22,6 +22,7 @@
         <th>Filename</th>
         <th>Filesize</th>
         <th>Filetype</th>
+        <th>Downlaod</th>
       </tr>
       {% for item in items %}
       <tr class="data">
@@ -36,6 +37,9 @@
         </td>
         <td>{{ item.filesize }}</td>
         <td>{{ item.filetype }}</td>
+        {% if item.isDirectory==False %}
+        <td>sijdaoida</td>
+        {% endif %}
       </tr>
       {% endfor %}
     </table>
