@@ -87,7 +87,7 @@ def browse(current_directory: str, request: Request):
             )
             
     items = os.listdir(absolutePath)
-    itemList = createItemObj(items, absolutePath)
+    itemList = createItemObj(items, str(absolutePath), BASE_DIR)
     
     # if we go back and forth via the browser, it doesnt activate this function
     directoryList = createBreadcrumbs(current_directory)
@@ -108,6 +108,7 @@ def browse(current_directory: str, request: Request):
             },
         )
     
-@app.get("download/{filepath:path}")
-def download(filepath:str):
-    return FileResponse(filepath)
+@app.get("/download/{filepath:path}/{fullname:str}")
+def download(filepath:str, fullname:str):
+    #works if link is fullpath+filename/filename
+    return FileResponse(path=filepath, filename=fullname)

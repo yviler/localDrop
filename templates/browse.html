@@ -22,7 +22,7 @@
         <th>Filename</th>
         <th>Filesize</th>
         <th>Filetype</th>
-        <th>Downlaod</th>
+        <th>Action</th>
       </tr>
       {% for item in items %}
       <tr class="data">
@@ -38,7 +38,13 @@
         <td>{{ item.filesize }}</td>
         <td>{{ item.filetype }}</td>
         {% if item.isDirectory==False %}
-        <td>sijdaoida</td>
+        <td>
+          <a
+            href="{{request.url_for('download', filepath=item.location, fullname=item.fullname)}}"
+          >
+            [ Install ] {{ item }}
+          </a>
+        </td>
         {% endif %}
       </tr>
       {% endfor %}
