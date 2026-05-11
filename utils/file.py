@@ -14,7 +14,7 @@ def createItemObj(items:list,current_dir:str, base_dir:str)-> list:
             filetype=os.path.splitext(item)[1][1:],
             location=current_dir,
             isDirectory=os.path.isdir(full_item),
-            relativePath=current_dir.removeprefix(str(base_dir)),
+            relativePath="." + str(full_item).removeprefix(os.path.split(base_dir)[0]),
         ))
     return objList
 

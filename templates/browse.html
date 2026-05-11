@@ -39,10 +39,8 @@
         <td>{{ item.filetype }}</td>
         {% if item.isDirectory==False %}
         <td>
-          <a
-            href="{{request.url_for('download', filepath=item.location, fullname=item.fullname)}}"
-          >
-            [ Install ] {{ item }}
+          <a href="{{request.url_for('download', filepath=item.relativePath)}}">
+            [ Install ]
           </a>
         </td>
         {% endif %}
@@ -53,7 +51,7 @@
     <p>no items</p>
     {% endif %}
     <div>
-      <a href="{{request.url_for('upload', directory=directory.full_dir)}}"
+      <a href="{{request.url_for('uploadPage', directory=directory.full_dir)}}"
         >[ Upload ]</a
       >
     </div>

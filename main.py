@@ -34,7 +34,17 @@ def dashboard(request: Request):
         )
 
 @app.get("/upload/{directory:path}")
-def upload(request: Request, directory:str):
+def uploadPage(request: Request, directory:str):
+    absolutePath = Path(directory).resolve()
+    if not absolutePath.is_relative_to(BASE_DIR):
+            return templates.TemplateResponse(
+                request, 
+                "error.html",
+                {
+                "wrongPath": directory,       
+                },
+            )
+            
     return templates.TemplateResponse(
         request, 
         "upload.html", 
@@ -46,7 +56,8 @@ def upload(request: Request, directory:str):
 @app.post("/upload/")
 async def upload(request: Request, file: UploadFile, directory:str= Form(...), name:str = Form("")):    
 
-    if(str(directory).startswith(str(BASE_DIR)) != True):
+    absolutePath = Path(directory).resolve()
+    if not absolutePath.is_relative_to(BASE_DIR):
         return templates.TemplateResponse(
             request, 
             "error.html",
@@ -77,7 +88,7 @@ def browse(current_directory: str, request: Request):
         
     absolutePath = Path(current_directory).resolve()
     
-    if(str(absolutePath).startswith(str(BASE_DIR)) != True):
+    if not absolutePath.is_relative_to(BASE_DIR):
             return templates.TemplateResponse(
                 request, 
                 "error.html",
@@ -87,7 +98,7 @@ def browse(current_directory: str, request: Request):
             )
             
     items = os.listdir(absolutePath)
-    itemList = createItemObj(items, str(absolutePath), BASE_DIR)
+    itemList = createItemObj(items, str(absolutePath), str(BASE_DIR))
     
     # if we go back and forth via the browser, it doesnt activate this function
     directoryList = createBreadcrumbs(current_directory)
@@ -108,7 +119,17 @@ def browse(current_directory: str, request: Request):
             },
         )
     
-@app.get("/download/{filepath:path}/{fullname:str}")
-def download(filepath:str, fullname:str):
-    #works if link is fullpath+filename/filename
-    return FileResponse(path=filepath, filename=fullname)
+@app.get("/download/{filepath:path}")
+def download(filepath:str, request: Request):
+    absolutePath = Path(filepath).resolve()
+        
+    if not absolutePath.is_relative_to(BASE_DIR):
+            return templates.TemplateResponse(
+                request, 
+                "error.html",
+                {
+                "wrongPath": filepath,       
+                },
+            )
+            
+    return FileResponse(path=filepath, filename=os.path.split(filepath)[1])
