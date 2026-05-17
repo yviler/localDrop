@@ -40,7 +40,7 @@
         {% if item.isDirectory==False %}
         <td>
           <a href="{{request.url_for('download', filepath=item.relativePath)}}">
-            [ Install ]
+            [ Download ]
           </a>
         </td>
         {% endif %}
@@ -51,7 +51,7 @@
     <p>no items</p>
     {% endif %}
     <div>
-      <a href="{{request.url_for('uploadPage', directory=directory.full_dir)}}"
+      <a href="{{request.url_for('uploadPage', directory=directory.name)}}"
         >[ Upload ]</a
       >
     </div>

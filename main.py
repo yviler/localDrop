@@ -102,11 +102,12 @@ def browse(current_directory: str, request: Request):
     
     # if we go back and forth via the browser, it doesnt activate this function
     directoryList = createBreadcrumbs(current_directory)
-    
+
     
     directory = {
         "name": current_directory,
         "full_dir": absolutePath,
+        "relative_path":  "test",
         "paths": directoryList
     }
     
